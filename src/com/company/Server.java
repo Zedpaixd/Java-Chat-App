@@ -1,14 +1,13 @@
 package com.company;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class Server implements Runnable{
 
@@ -84,10 +83,17 @@ public class Server implements Runnable{
         private final Socket client;
         private BufferedReader inputReader;
         private PrintWriter outputReader;
+        DateTimeFormatter dtf;
+        LocalDateTime now;
+        FileWriter fileWriter;
+        BufferedWriter bufferedWriter;
 
-        public ConnectionHandler(Socket client)
-        {
+        public ConnectionHandler(Socket client) throws IOException {
             this.client = client;
+            dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            now = LocalDateTime.now();
+            fileWriter = new FileWriter("logs.txt",true);
+            bufferedWriter = new BufferedWriter(fileWriter);
         }
 
 
@@ -98,13 +104,16 @@ public class Server implements Runnable{
             {
                 outputReader = new PrintWriter(client.getOutputStream(),true);
                 inputReader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+
                 outputReader.println("Choose a name: ");
 
                 String userName = inputReader.readLine();
                 String userMessage;
 
-                System.out.println(userName + " connected.");
 
+
+                System.out.println(userName + " connected.");
+                fileWriter.write(userName + " connected at " + dtf.format(now) + "\n");
                 sendToAllUsers(userName + " joined the chat.");
 
                 while ((userMessage = inputReader.readLine()) != null)
@@ -115,7 +124,7 @@ public class Server implements Runnable{
                         if (messageSplit.length == 2)
                         {
                             sendToAllUsers(userName + " renamed to " + messageSplit[1]);
-
+                            fileWriter.write(userName + " renamed to " + messageSplit[1] + " at " + dtf.format(now) + "\n");
                             userName = messageSplit[1];
                             outputReader.println("Successfully changed name to " + userName);
                         }
@@ -128,6 +137,7 @@ public class Server implements Runnable{
                     {
                         sendToAllUsers(userName + " left the server.");
                         System.out.println(userName + " left the server.");
+                        fileWriter.write(userName + " left the server at " + dtf.format(now) + "\n");
 
                         shutdown();
                     }
@@ -136,10 +146,12 @@ public class Server implements Runnable{
                         sendToAllUsers(userName + ": " + userMessage);
                     }
                 }
+
             }
             catch (IOException e){
                 //e.printStackTrace();
                 shutdown();
+
             }
         }
 
@@ -155,13 +167,15 @@ public class Server implements Runnable{
             {
                 inputReader.close();
                 outputReader.close();
+                fileWriter.close();
+                bufferedWriter.close();
 
                 if (!client.isClosed())
                     client.close();
             }
             catch (IOException e)
             {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
 
         }
