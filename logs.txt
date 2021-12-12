@@ -1,9 +1,18 @@
-test connected at 2021/11/27 23:26:26
-workpls connected at 2021/11/27 23:30:05
-wasd connected at 2021/11/27 23:32:08
-wasd left the server at 2021/11/27 23:32:08
-asd connected at 2021/11/27 23:32:03
-asd renamed to dsa at 2021/11/27 23:32:03
-dsa left the server at 2021/11/27 23:32:03
-zed connected at 2021/11/27 23:31:59
-zed left the server at 2021/11/27 23:31:59
+hi connected at 2021/12/12 18:06:51
+hi left the server at 2021/12/12 18:06:51
+Gheorghe connected at 2021/12/12 21:56:56
+Gheorghe connected at 2021/12/12 21:58:37
+Gheorghe connected at 2021/12/12 22:02:16
+test connected at 2021/12/12 22:04:09
+test left the server at 2021/12/12 22:04:09
+test connected at 2021/12/12 22:04:37
+testt connected at 2021/12/12 22:06:14
+test connected at 2021/12/12 22:06:53
+wasd connected at 2021/12/12 22:06:50
+wasdd connected at 2021/12/12 22:09:42
+test2 connected at 2021/12/12 22:11:34
+test1 connected at 2021/12/12 22:11:32
+test connected at 2021/12/12 22:12:50
+test left the server at 2021/12/12 22:12:50
+what connected at 2021/12/12 22:13:58
+what left the server at 2021/12/12 22:13:58
