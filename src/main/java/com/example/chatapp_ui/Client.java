@@ -1,5 +1,8 @@
 package com.example.chatapp_ui;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,6 +17,8 @@ public class Client implements Runnable{
     private PrintWriter clientOutput;
     private boolean shutDown;
     String name;
+    static String history = "";
+
 
     public Client(String str)
     {
@@ -21,6 +26,11 @@ public class Client implements Runnable{
         this.name = str;
     }
 
+    public void appendToHistory(String a)
+    {
+        history.concat(a);
+        history.concat("\n");
+    }
 
     @Override
     public void run()
@@ -38,9 +48,11 @@ public class Client implements Runnable{
             clientThread.start();
 
             String clientMessage;
+
             while ((clientMessage = clientInput.readLine()) != null)
             {
-                System.out.println(clientMessage);
+                System.out.println(clientMessage);     // Server messages
+                appendToHistory(clientMessage);
             }
         }
         catch (IOException e)
@@ -69,9 +81,24 @@ public class Client implements Runnable{
 
     class InputHandler implements Runnable {
 
+
+        public void sendMessage(String userMessage) throws IOException
+        {
+            if (userMessage.equals("/quit"))
+            {
+                clientOutput.println(userMessage);
+                shutdown();
+            }
+            else
+            {
+                clientOutput.println(userMessage);
+            }
+        }
+
+
         @Override
         public void run(){
-            try
+            /*try
             {
                 BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
                 while (!shutDown)
@@ -86,6 +113,7 @@ public class Client implements Runnable{
                     else
                     {
                         clientOutput.println(userMessage);
+
                     }
                 }
             }
@@ -93,7 +121,7 @@ public class Client implements Runnable{
             {
                 e.printStackTrace();
                 shutdown();
-            }
+            }*/
         }
     }
 

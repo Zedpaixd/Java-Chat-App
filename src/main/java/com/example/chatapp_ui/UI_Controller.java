@@ -6,11 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.*;
 import java.util.EventObject;
@@ -23,6 +21,11 @@ public class UI_Controller {
     @FXML private Label errorIGuess;
     @FXML private TextField nickname;
     @FXML private Button closeWindow;
+    @FXML private TextField message;
+    @FXML private TextArea chat;
+
+    static Client client;
+    static Client.InputHandler IH;
 
     public void registerScene(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Register.fxml"));
@@ -32,13 +35,13 @@ public class UI_Controller {
         stage.show();
     }
 
-    public void Chat(ActionEvent event) throws IOException {
+    /*public void Chat(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("ChatThing.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
+    }*/
 
     public void loginScene(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
@@ -138,18 +141,39 @@ public class UI_Controller {
 
     public void ready(ActionEvent event) throws IOException {
 
-        Client client = new Client(nickname.getText());
+        this.client = new Client(nickname.getText());
+        this.IH = client.new InputHandler();
+
         Thread th = new Thread(client);
         th.start();
 
-        Parent root = FXMLLoader.load(getClass().getResource("ChatThing.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Chatting.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        //stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
+
 
 
     }
 
+    public void sendMessage(ActionEvent event) throws IOException
+    {
+        IH.sendMessage(message.getText());
+        message.setText("");
+    }
+
+    public void closeWindow(ActionEvent event) throws IOException
+    {
+        IH.sendMessage("/quit");
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    public void appendText(String str)
+    {
+        chat.appendText(str);
+    }
 
 }
