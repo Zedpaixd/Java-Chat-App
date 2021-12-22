@@ -1,44 +1,42 @@
 package com.example.chatapp_ui;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.function.Consumer;
 
-public class Client implements Runnable{
+public class Client implements Runnable {
 
 
     private Socket client;
     private BufferedReader clientInput;
     private PrintWriter clientOutput;
     private boolean shutDown;
+    private Consumer<String> chat;
     String name;
-    static String history = "";
 
 
-    public Client(String str)
-    {
+    public Client(String str, Consumer<String> chat) {
         super();
+        this.chat = chat;
         this.name = str;
     }
 
-    public void appendToHistory(String a)
-    {
-        history.concat(a);
-        history.concat("\n");
+    public void writeHistory(BufferedReader clientInput) throws IOException {
+        String clientMessage;
+
+        while ((clientMessage = clientInput.readLine()) != null) {
+            System.out.println(clientMessage);
+        }
     }
 
     @Override
-    public void run()
-    {
-        try
-        {
-            client = new Socket("127.0.0.1",9999);  // --------------
-            clientOutput = new PrintWriter(client.getOutputStream(),true);
+    public void run() {
+        try {
+            client = new Socket("127.0.0.1", 9999);  // --------------
+            clientOutput = new PrintWriter(client.getOutputStream(), true);
             clientInput = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
             clientOutput.println(name);
@@ -47,33 +45,27 @@ public class Client implements Runnable{
             Thread clientThread = new Thread(inHandler);
             clientThread.start();
 
+//            writeHistory(clientInput);
             String clientMessage;
 
-            while ((clientMessage = clientInput.readLine()) != null)
-            {
-                System.out.println(clientMessage);     // Server messages
-                appendToHistory(clientMessage);
+            System.out.println("Before while");
+            while ((clientMessage = clientInput.readLine()) != null) {
+                chat.accept(clientMessage);
+                System.out.println("In while with message: " + clientMessage);
             }
-        }
-        catch (IOException e)
-        {
-            //e.printStackTrace();
+        } catch (IOException e) {
             shutdown();
         }
     }
 
-    public void shutdown()
-    {
+    public void shutdown() {
         shutDown = true;
-        try
-        {
+        try {
             clientInput.close();
             clientOutput.close();
-            if(!client.isClosed())
+            if (!client.isClosed())
                 client.close();
-        }
-        catch(IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -81,23 +73,17 @@ public class Client implements Runnable{
 
     class InputHandler implements Runnable {
 
-
-        public void sendMessage(String userMessage) throws IOException
-        {
-            if (userMessage.equals("/quit"))
-            {
+        public void sendMessage(String userMessage) {
+            if (userMessage.equals("/quit")) {
                 clientOutput.println(userMessage);
                 shutdown();
-            }
-            else
-            {
+            } else {
                 clientOutput.println(userMessage);
             }
         }
 
-
         @Override
-        public void run(){
+        public void run() {
             /*try
             {
                 BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
@@ -124,10 +110,4 @@ public class Client implements Runnable{
             }*/
         }
     }
-
-    /*public static void main(String[] args) {
-        Client client = new Client();
-        client.run();
-    }*/
-
 }

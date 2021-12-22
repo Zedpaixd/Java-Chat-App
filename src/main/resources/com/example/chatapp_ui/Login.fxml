@@ -4,25 +4,66 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="407.0" prefWidth="310.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chatapp_ui.UI_Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="307.0" prefWidth="261.0" style="-fx-background-color: linear-gradient(#F0ECEB,  #FFFFFF);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chatapp_ui.UI_Controller">
    <children>
-      <Label layoutX="121.0" layoutY="47.0" text="Login">
+      <Label layoutX="79.0" layoutY="14.0" prefHeight="39.0" prefWidth="103.0" text="Login">
          <font>
-            <Font size="28.0" />
+            <Font name="Eras Medium ITC" size="40.0" />
          </font>
+         <effect>
+            <DropShadow>
+               <input>
+                  <Glow />
+               </input>
+               <color>
+                  <Color opacity="0.36796537041664124" />
+               </color>
+            </DropShadow>
+         </effect>
       </Label>
-      <Label layoutX="22.0" layoutY="125.0" text="Username" />
-      <Label layoutX="24.0" layoutY="177.0" text="Password" />
-      <TextField fx:id="username" layoutX="103.0" layoutY="121.0" prefHeight="25.0" prefWidth="185.0" />
-      <PasswordField fx:id="password" layoutX="103.0" layoutY="173.0" prefHeight="25.0" prefWidth="185.0" />
-      <Button layoutX="106.0" layoutY="244.0" mnemonicParsing="false" onAction="#login" text="Log me in">
+      <Label layoutX="10.0" layoutY="115.0" text="Username">
+         <font>
+            <Font name="Eras Medium ITC" size="12.0" />
+         </font></Label>
+      <Label layoutX="12.0" layoutY="155.0" text="Password">
+         <font>
+            <Font name="Eras Medium ITC" size="12.0" />
+         </font></Label>
+      <TextField fx:id="username" layoutX="80.0" layoutY="111.0" prefHeight="25.0" prefWidth="171.0">
+         <effect>
+            <InnerShadow>
+               <color>
+                  <Color opacity="0.27272728085517883" />
+               </color>
+            </InnerShadow>
+         </effect></TextField>
+      <PasswordField fx:id="password" layoutX="80.0" layoutY="151.0" prefHeight="25.0" prefWidth="171.0">
+         <effect>
+            <InnerShadow>
+               <color>
+                  <Color opacity="0.268398255109787" />
+               </color>
+            </InnerShadow>
+         </effect></PasswordField>
+      <Button layoutX="79.0" layoutY="229.0" mnemonicParsing="false" onAction="#login" opacity="0.82" text="Log me in" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.25108224153518677" />
+               </color>
+            </DropShadow>
+         </effect>
       </Button>
-      <Label fx:id="errorIGuess" layoutX="53.0" layoutY="327.0" prefHeight="17.0" prefWidth="237.0" text=" " textAlignment="CENTER" textFill="RED" />
+      <Label fx:id="errorIGuess" layoutX="12.0" layoutY="193.0" prefHeight="17.0" prefWidth="237.0" text=" " textAlignment="CENTER" textFill="RED" />
    </children>
 </AnchorPane>

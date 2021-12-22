@@ -12,8 +12,9 @@ public class ChatAppEXE extends Application{
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ChatAppEXE.class.getResource("MainPage.fxml"));
+
         Scene scene = new Scene(fxmlLoader.load(), 250, 330);
-        stage.setTitle("Simple java chat app!");
+        stage.setTitle("MJCP");
         stage.setScene(scene);
         stage.show();
     }

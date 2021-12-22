@@ -105,8 +105,6 @@ public class Server implements Runnable{
                 outputReader = new PrintWriter(client.getOutputStream(),true);
                 inputReader = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
-                /*outputReader.println("Choose a name: ");*/
-
 
 
                 String userName = inputReader.readLine();
@@ -151,7 +149,6 @@ public class Server implements Runnable{
 
             }
             catch (IOException e){
-                //e.printStackTrace();
                 shutdown();
 
             }
@@ -175,9 +172,9 @@ public class Server implements Runnable{
                 if (!client.isClosed())
                     client.close();
             }
-            catch (IOException e)
+            catch (IOException ignored)
             {
-                //e.printStackTrace();
+
             }
 
         }
