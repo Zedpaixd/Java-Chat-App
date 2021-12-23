@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="788.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chatapp_ui.controlles.ChattingController">
+   <children>
+      <ImageView fitHeight="573.0" fitWidth="788.0" pickOnBounds="true">
+         <image>
+            <Image url="@media/bg.jpg" />
+         </image>
+      </ImageView>
+      <TextArea fx:id="chat" editable="false" layoutX="14.0" layoutY="14.0" opacity="0.88" prefHeight="495.0" prefWidth="621.0" wrapText="true" />
+      <Label layoutX="662.0" layoutY="484.0" prefHeight="25.0" prefWidth="93.0" text="/nick {new name}" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+      <TextField fx:id="message" layoutX="14.0" layoutY="525.0" onKeyPressed="#enterPress" prefHeight="27.0" prefWidth="621.0" />
+      <Button layoutX="662.0" layoutY="526.0" mnemonicParsing="false" onAction="#sendMessage" onKeyPressed="#enterPress" text="Send Message" />
+      <Button layoutX="739.0" layoutY="14.0" mnemonicParsing="false" onAction="#closeWindow" text="Exit" />
+   </children>
+</AnchorPane>
