@@ -1,6 +1,6 @@
 package com.example.chatapp_ui;
 
-import com.example.chatapp_ui.controlles.ChattingController;
+import com.example.chatapp_ui.controllers.ChattingController;
 
 import java.io.BufferedReader;
 import java.io.IOException;

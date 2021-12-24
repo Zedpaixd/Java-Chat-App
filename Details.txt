@@ -1,0 +1,8 @@
+ReadInsert ReadInsert
+   ^           ^
+   |           |
+   |           |
+   |           |
+DB Username  DB Password
+
+Requires UPDATE and INSERT permissions.

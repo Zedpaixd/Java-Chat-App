@@ -9,10 +9,11 @@ module com.example.chatapp_ui {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires java.sql;
 
     opens com.example.chatapp_ui to javafx.fxml;
     exports com.example.chatapp_ui;
 
-    opens com.example.chatapp_ui.controlles to javafx.fxml;
-    exports com.example.chatapp_ui.controlles;
+    opens com.example.chatapp_ui.controllers to javafx.fxml;
+    exports com.example.chatapp_ui.controllers;
 }

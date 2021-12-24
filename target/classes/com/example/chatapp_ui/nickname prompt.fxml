@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="193.0" prefWidth="436.0" style="-fx-background-color: linear-gradient(#FFFFFF,  #E6E5E5);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chatapp_ui.controlles.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="193.0" prefWidth="436.0" style="-fx-background-color: linear-gradient(#FFFFFF,  #E6E5E5);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chatapp_ui.controllers.LoginController">
    <children>
       <Label alignment="CENTER" layoutX="121.0" layoutY="25.0" prefHeight="27.0" prefWidth="195.0" text="Choose a nickname" textAlignment="CENTER">
          <font>

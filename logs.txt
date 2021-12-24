@@ -183,3 +183,17 @@ zed renamed to test2 at 2021/12/24 00:44:52
 test2 left the server at 2021/12/24 00:44:52
 wasd connected at 2021/12/24 00:43:17
 wasd left the server at 2021/12/24 00:43:17
+wasd connected at 2021/12/24 20:16:28
+wasd renamed to test2 at 2021/12/24 20:16:28
+test2 left the server at 2021/12/24 20:16:28
+ connected at 2021/12/24 20:16:24
+ renamed to wasd at 2021/12/24 20:16:24
+wasd left the server at 2021/12/24 20:16:24
+ㅁㄴㅇㅈ connected at 2021/12/24 20:19:00
+ㅁㄴㅇㅈ renamed to t2 at 2021/12/24 20:19:00
+t2 left the server at 2021/12/24 20:19:00
+hey connected at 2021/12/24 22:46:35
+hey renamed to this works at 2021/12/24 22:46:35
+this works left the server at 2021/12/24 22:46:35
+kek connected at 2021/12/24 22:46:49
+kek renamed to yep at 2021/12/24 22:46:49
