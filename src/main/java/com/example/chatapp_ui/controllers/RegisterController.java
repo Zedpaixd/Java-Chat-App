@@ -1,6 +1,8 @@
 package com.example.chatapp_ui.controllers;
 
 import com.example.chatapp_ui.ChatAppEXE;
+import com.example.chatapp_ui.CredentialsTooShortException;
+import com.example.chatapp_ui.ExistingUsernameException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,7 +47,7 @@ public class RegisterController {
         stage.show();
     }
 
-    public void register(ActionEvent event) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    public void register(ActionEvent event) {
 
         /*  F I L E   V E R S I O N
         boolean exists = false;
@@ -86,23 +88,36 @@ public class RegisterController {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        connection = DriverManager.getConnection(DBurl, DBusername, DBpassword);
-        PreparedStatement ps = connection.prepareStatement("select * from accounts");
-        ResultSet rs = ps.executeQuery();
-        while (rs.next())
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+            connection = DriverManager.getConnection(DBurl, DBusername, DBpassword);
+            PreparedStatement ps = connection.prepareStatement("select * from accounts");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                if (Objects.equals(username.getText(), rs.getString(2)))
+                    exists = true;
+            }
+            if (!exists) {
+                if (username.getText().length() < 3 || password.getText().length() < 3)
+                    throw new CredentialsTooShortException("Username and password must both be of 3 or more letters!");
+                else
+                {
+                    ps = connection.prepareStatement("insert into accounts(username,password) values ('" + username.getText() + "','" + password.getText() + "');");
+                    ps.executeUpdate();
+                    MainScreen(event);
+                }
+
+            }
+            if (exists) {
+                errorIGuess.setText("Username already in database.");
+                exists = false;
+                throw new ExistingUsernameException("Username already in database");
+
+            }
+        }
+        catch (IOException | ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException | ExistingUsernameException | CredentialsTooShortException e)
         {
-            if (Objects.equals(username.getText(), rs.getString(2)))
-                exists = true;
-        }
-        if (!exists){
-            ps = connection.prepareStatement("insert into accounts(username,password) values ('" + username.getText() + "','" + password.getText() + "');");
-            ps.executeUpdate();
-            MainScreen(event);
-        }
-        if (exists) {
-            errorIGuess.setText("Username already in database.");
-            exists = false;
+            e.printStackTrace();
         }
 
 
