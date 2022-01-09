@@ -1,8 +1,6 @@
 package com.example.chatapp_ui.controllers;
 
-import com.example.chatapp_ui.ChatAppEXE;
-import com.example.chatapp_ui.CredentialsTooShortException;
-import com.example.chatapp_ui.ExistingUsernameException;
+import com.example.chatapp_ui.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,14 +21,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 
-public class RegisterController {
+public class RegisterController implements RegisterControllerInterface {
 
 
-    static Connection connection = null;
+    /*static Connection connection = null;
     static String DBName = "mjca";
     static String DBurl = "jdbc:mysql://localhost:3306/" + DBName;
     static String DBusername = "";
-    static String DBpassword = "";
+    static String DBpassword = "";*/
 
     @FXML
     private TextField username;
@@ -47,7 +45,7 @@ public class RegisterController {
         stage.show();
     }
 
-    public void register(ActionEvent event) {
+    public void register(ActionEvent event) throws SQLException, IOException {
 
         /*  F I L E   V E R S I O N
         boolean exists = false;
@@ -76,7 +74,7 @@ public class RegisterController {
         fw.close();
         fr.close();*/
 
-        boolean exists = false;
+        /* D A T A B A S E   C O N N E C T I O N
 
         try{
             File file = new File("Details.txt");
@@ -118,7 +116,42 @@ public class RegisterController {
         catch (IOException | ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException | ExistingUsernameException | CredentialsTooShortException e)
         {
             e.printStackTrace();
+        }*/
+
+        DBHandler inDB = new DBHandler();
+
+
+        try
+        {
+            if (username.getText().length() < 3 || password.getText().length() < 3)
+
+                throw new CredentialsTooShortException("Username and password must both be of 3 or more letters!");
+
+            else
+            {
+                boolean addable = inDB.register(username.getText(), password.getText());
+
+                if (addable)
+                {
+                    MainScreen(event);
+                }
+                else
+                {
+                    throw new ExistingUsernameException("Username already in database");
+                }
+            }
         }
+        catch (CredentialsTooShortException e)
+        {
+            e.printStackTrace();
+            errorIGuess.setText("User and Pass must be of at least 3 letters!");
+        }
+        catch (ExistingUsernameException e)
+        {
+            e.printStackTrace();
+            errorIGuess.setText("Username already in database.");
+        }
+
 
 
     }

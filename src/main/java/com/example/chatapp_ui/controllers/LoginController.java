@@ -1,6 +1,8 @@
 package com.example.chatapp_ui.controllers;
 
 import com.example.chatapp_ui.ChatAppEXE;
+import com.example.chatapp_ui.DBHandler;
+import com.example.chatapp_ui.LoginControllerInterface;
 import com.example.chatapp_ui.UnmatchingCredentialsException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +19,7 @@ import java.sql.*;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class LoginController {
+public class LoginController implements LoginControllerInterface {
 
     @FXML
     public TextField nickname;
@@ -28,11 +30,11 @@ public class LoginController {
     @FXML
     private Label errorIGuess;
 
-    static Connection connection = null;
+    /*static Connection connection = null;
     static String DBName = "mjca";
     static String DBurl = "jdbc:mysql://localhost:3306/" + DBName;
     static String DBusername = "";
-    static String DBpassword = "";
+    static String DBpassword = "";*/
 
     public TextField getNickname() {
         return nickname;
@@ -60,7 +62,7 @@ public class LoginController {
         stage.show();
     }
 
-    public void login(ActionEvent event) {
+    public void login(ActionEvent event) throws SQLException {
 
         /*  F I L E   V E R S I O N
         boolean match = false;
@@ -82,6 +84,8 @@ public class LoginController {
             errorIGuess.setText("Wrong Username + Password combination.");
             match = false;
         }*/
+
+        /* D A T A B A S E   C O N N E C T I O N
 
         boolean match = false;
 
@@ -117,7 +121,28 @@ public class LoginController {
         catch (IOException | ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException | UnmatchingCredentialsException e)
         {
             e.printStackTrace();
+        }*/
+
+        DBHandler inDB = new DBHandler();
+
+        boolean match = inDB.logIn(username.getText(),password.getText());
+
+        try
+        {
+            if (match) {
+                nicknamePrompt(event);
+            }
+            if (!match) {
+
+                throw new UnmatchingCredentialsException("Wrong username and password combination.");
+            }
         }
+        catch (UnmatchingCredentialsException | IOException e)
+        {
+            e.printStackTrace();
+            errorIGuess.setText("Wrong Username + Password combination.");
+        }
+
 
     }
 }

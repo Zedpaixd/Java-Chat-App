@@ -1,10 +1,5 @@
 @startuml
 class com.example.chatapp_ui.controllers.RegisterController {
-~ {static} Connection connection
-~ {static} String DBName
-~ {static} String DBurl
-~ {static} String DBusername
-~ {static} String DBpassword
 - TextField username
 - PasswordField password
 - Label errorIGuess
@@ -19,7 +14,6 @@ class com.example.chatapp_ui.Client {
 - ChattingController controller
 - boolean shutDown
 + <<Create>> Client(String,ChattingController)
-+ void writeHistory(BufferedReader)
 + void run()
 + void shutdown()
 }
@@ -77,15 +71,21 @@ class com.example.chatapp_ui.controllers.LoginController {
 - TextField username
 - PasswordField password
 - Label errorIGuess
++ TextField getNickname()
++ void nicknamePrompt(ActionEvent)
++ void show(ActionEvent)
++ void login(ActionEvent)
+}
+class com.example.chatapp_ui.DBHandler {
 ~ {static} Connection connection
 ~ {static} String DBName
 ~ {static} String DBurl
 ~ {static} String DBusername
 ~ {static} String DBpassword
-+ TextField getNickname()
-+ void nicknamePrompt(ActionEvent)
-+ void show(ActionEvent)
-+ void login(ActionEvent)
++ boolean match
++ <<Create>> DBHandler()
++ boolean logIn(String,String)
++ boolean register(String,String)
 }
 class com.example.chatapp_ui.ChatAppEXE {
 + void start(Stage)
@@ -108,8 +108,7 @@ class com.example.chatapp_ui.UnmatchingCredentialsException {
 }
 
 
-com.example.chatapp_ui.RegisterControllerInterface <|.. com.example.chatapp_ui.controllers.RegisterController
-com.example.chatapp_ui.LoginControllerInterface <|.. com.example.chatapp_ui.controllers.LoginController
+com.example.chatapp_ui.controllers.RegisterControllerInterface <|.. com.example.chatapp_ui.controllers.RegisterController
 com.example.chatapp_ui.Thread <|-- com.example.chatapp_ui.Client
 com.example.chatapp_ui.Client +.. com.example.chatapp_ui.Client.InputHandler
 com.example.chatapp_ui.Runnable <|.. com.example.chatapp_ui.Client.InputHandler
@@ -117,6 +116,7 @@ com.example.chatapp_ui.Runnable <|.. com.example.chatapp_ui.Server
 com.example.chatapp_ui.Server +.. com.example.chatapp_ui.Server.ConnectionHandler
 com.example.chatapp_ui.Runnable <|.. com.example.chatapp_ui.Server.ConnectionHandler
 com.example.chatapp_ui.Exception <|-- com.example.chatapp_ui.CredentialsTooShortException
+com.example.chatapp_ui.LoginControllerInterface <|.. com.example.chatapp_ui.controllers.LoginController
 javafx.application.Application <|-- com.example.chatapp_ui.ChatAppEXE
 com.example.chatapp_ui.Exception <|-- com.example.chatapp_ui.ExistingUsernameException
 com.example.chatapp_ui.Exception <|-- com.example.chatapp_ui.UnmatchingCredentialsException

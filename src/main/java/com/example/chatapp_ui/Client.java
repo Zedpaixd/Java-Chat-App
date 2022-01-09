@@ -24,14 +24,6 @@ public class Client extends Thread {
         this.controller = controller;
     }
 
-    public void writeHistory(BufferedReader clientInput) throws IOException {
-        String clientMessage;
-
-        while ((clientMessage = clientInput.readLine()) != null) {
-            System.out.println(clientMessage);
-        }
-    }
-
     @Override
     public void run() {
         try {
@@ -45,7 +37,6 @@ public class Client extends Thread {
             Thread clientThread = new Thread(inHandler);
             clientThread.start();
 
-//            writeHistory(clientInput);
             String clientMessage;
 
             while ((clientMessage = clientInput.readLine()) != null) {
