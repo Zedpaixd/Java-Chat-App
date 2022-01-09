@@ -108,7 +108,7 @@ class com.example.chatapp_ui.UnmatchingCredentialsException {
 }
 
 
-com.example.chatapp_ui.controllers.RegisterControllerInterface <|.. com.example.chatapp_ui.controllers.RegisterController
+com.example.chatapp_ui.RegisterControllerInterface <|.. com.example.chatapp_ui.controllers.RegisterController
 com.example.chatapp_ui.Thread <|-- com.example.chatapp_ui.Client
 com.example.chatapp_ui.Client +.. com.example.chatapp_ui.Client.InputHandler
 com.example.chatapp_ui.Runnable <|.. com.example.chatapp_ui.Client.InputHandler
